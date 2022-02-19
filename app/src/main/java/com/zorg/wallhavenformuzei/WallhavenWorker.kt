@@ -1,15 +1,14 @@
 package com.zorg.wallhavenformuzei
 
 import android.content.Context
-import android.util.Log
 import androidx.work.*
 import com.google.android.apps.muzei.api.provider.ProviderContract
-import com.zorg.wallhavenformuzei.error.NoItemsException
-import com.zorg.wallhavenformuzei.service.ArtWork
-import com.zorg.wallhavenformuzei.service.Searcher
+import com.zorg.wallhavenformuzei.domain.CreateArtWork
+import com.zorg.wallhavenformuzei.domain.GetWallPaper
+import com.zorg.wallhavenformuzei.data.error.NoItemsException
 import java.util.concurrent.ExecutionException
-import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
+
 
 class WallhavenWorker(context: Context, workerParams: WorkerParameters) :
     Worker(context, workerParams) {
@@ -19,23 +18,18 @@ class WallhavenWorker(context: Context, workerParams: WorkerParameters) :
         internal fun enqueueLoad(context: Context) {
             val workManager = WorkManager.getInstance(context)
             workManager.enqueue(
-                OneTimeWorkRequestBuilder<WallhavenWorker>()
-                    .setConstraints(
-                        Constraints.Builder()
-                            .setRequiredNetworkType(NetworkType.CONNECTED)
-                            .build()
-                    )
-                    .build()
+                OneTimeWorkRequestBuilder<WallhavenWorker>().setConstraints(
+                    Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
+                ).build()
             )
         }
     }
 
     override fun doWork(): Result {
-        val future = Searcher.search(applicationContext)
         return try {
-            val searchJson = future.get(60, TimeUnit.SECONDS)
+            val wallpaper = GetWallPaper.get(applicationContext)
             val providerClient = ProviderContract.getProviderClient(applicationContext, WallhavenArtProvider::class.java)
-            providerClient.addArtwork(ArtWork.build(searchJson))
+            providerClient.addArtwork(CreateArtWork.create(wallpaper))
             Result.success()
         } catch (e: NoItemsException) {
             Result.retry()
