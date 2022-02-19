@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Wallhaven for Muzei</string>
+    <string name="provider_label">Wallhaven for Muzei</string>
+    <string name="provider_description">Get awesome wallpapers for Muzei! </string>
+</resources>
