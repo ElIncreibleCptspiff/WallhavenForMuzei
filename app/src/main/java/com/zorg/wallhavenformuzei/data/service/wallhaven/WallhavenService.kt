@@ -1,4 +1,4 @@
-package com.zorg.wallhavenformuzei.data.service
+package com.zorg.wallhavenformuzei.data.service.wallhaven
 
 import android.content.Context
 import android.content.res.Resources
@@ -6,6 +6,7 @@ import android.net.Uri
 import com.zorg.wallhavenformuzei.core.HttpGetFactory
 import com.zorg.wallhavenformuzei.data.model.Wallpaper
 import com.zorg.wallhavenformuzei.data.error.NoItemsException
+import com.zorg.wallhavenformuzei.data.service.WallpaperApiClient
 import dagger.hilt.android.qualifiers.ActivityContext
 
 import org.json.JSONArray
