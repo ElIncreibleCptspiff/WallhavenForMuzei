@@ -47,7 +47,7 @@ class WallhavenService @Inject constructor(
         if (wallpapers.length() == 0) {
             throw NoItemsException("Empty search")
         }
-        val jsonWallpaper = wallpapers.getJSONObject((0..wallpapers.length()-1).random())
+        val jsonWallpaper = wallpapers.getJSONObject((0 until wallpapers.length()).random())
         return Wallpaper(
             jsonWallpaper.getString("id"),
             jsonWallpaper.getString("created_at"),
