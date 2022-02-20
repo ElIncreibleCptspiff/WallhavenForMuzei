@@ -5,5 +5,5 @@ import com.zorg.wallhavenformuzei.data.model.Wallpaper
 
 
 interface WallpaperApiClient {
-    fun getRandomWallpaper(applicationContext: Context): Wallpaper
+    fun getRandomWallpaper(): Wallpaper
 }

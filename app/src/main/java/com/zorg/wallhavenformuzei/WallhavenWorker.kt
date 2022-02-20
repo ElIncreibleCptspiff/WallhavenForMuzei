@@ -27,7 +27,7 @@ class WallhavenWorker(context: Context, workerParams: WorkerParameters) :
 
     override fun doWork(): Result {
         return try {
-            val wallpaper = GetWallPaper.get(applicationContext)
+            val wallpaper = GetWallPaper(applicationContext).get()
             val providerClient = ProviderContract.getProviderClient(applicationContext, WallhavenArtProvider::class.java)
             providerClient.addArtwork(CreateArtWork.create(wallpaper))
             Result.success()

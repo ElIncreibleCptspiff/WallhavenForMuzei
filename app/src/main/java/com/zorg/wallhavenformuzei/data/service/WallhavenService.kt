@@ -6,19 +6,25 @@ import android.net.Uri
 import com.zorg.wallhavenformuzei.core.VolleyHelper
 import com.zorg.wallhavenformuzei.data.model.Wallpaper
 import com.zorg.wallhavenformuzei.data.error.NoItemsException
+import dagger.hilt.android.qualifiers.ActivityContext
 
 import org.json.JSONArray
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class WallhavenService : WallpaperApiClient {
+@Singleton
+class WallhavenService @Inject constructor(
+    @ActivityContext private val applicationContext: Context
+): WallpaperApiClient {
 
     companion object {
         const val SEARCH_URL = "https://wallhaven.cc/api/v1/search"
         const val RATIO = "16x9,9x16,portrait"
     }
 
-    override fun getRandomWallpaper(applicationContext: Context): Wallpaper {
-        val future = VolleyHelper.getJsonFromUrl(applicationContext, getSearchUrl())
+    override fun getRandomWallpaper(): Wallpaper {
+        val future = VolleyHelper(applicationContext).getJsonFromUrl(getSearchUrl())
         val searchJson = future.get(60, TimeUnit.SECONDS)
         return deserialize(searchJson.getJSONArray("data"))
     }
