@@ -3,7 +3,7 @@ package com.zorg.wallhavenformuzei.data.service
 import android.content.Context
 import android.content.res.Resources
 import android.net.Uri
-import com.zorg.wallhavenformuzei.core.VolleyHelper
+import com.zorg.wallhavenformuzei.core.HttpGetFactory
 import com.zorg.wallhavenformuzei.data.model.Wallpaper
 import com.zorg.wallhavenformuzei.data.error.NoItemsException
 import dagger.hilt.android.qualifiers.ActivityContext
@@ -24,7 +24,7 @@ class WallhavenService @Inject constructor(
     }
 
     override fun getRandomWallpaper(): Wallpaper {
-        val future = VolleyHelper(applicationContext).getJsonFromUrl(getSearchUrl())
+        val future = HttpGetFactory(applicationContext).get().getJsonFromUrl(getSearchUrl())
         val searchJson = future.get(60, TimeUnit.SECONDS)
         return deserialize(searchJson.getJSONArray("data"))
     }
