@@ -1,10 +1,12 @@
 package com.zorg.wallhavenformuzei
 
 import android.content.Context
+import android.util.Log
 import androidx.work.*
 import com.google.android.apps.muzei.api.provider.ProviderContract
 import com.zorg.wallhavenformuzei.domain.CreateArtWork
-import com.zorg.wallhavenformuzei.data.error.NoItemsException
+import com.zorg.wallhavenformuzei.error.JsonSchemaException
+import com.zorg.wallhavenformuzei.error.NoItemsException
 import com.zorg.wallhavenformuzei.ui.viewmodel.WallpaperViewModel
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.TimeoutException
@@ -31,6 +33,8 @@ class MuzeiWorker(context: Context, workerParams: WorkerParameters) :
             Result.success()
         } catch (e: NoItemsException) {
             Result.retry()
+        } catch (e: JsonSchemaException) {
+            Result.failure()
         } catch (e: InterruptedException) {
             Result.retry()
         } catch (e: TimeoutException) {

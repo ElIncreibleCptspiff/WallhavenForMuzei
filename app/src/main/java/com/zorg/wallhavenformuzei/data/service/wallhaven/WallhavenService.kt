@@ -2,11 +2,14 @@ package com.zorg.wallhavenformuzei.data.service.wallhaven
 
 import android.content.res.Resources
 import android.net.Uri
+import android.util.Log
 import com.zorg.wallhavenformuzei.core.HttpGet
 import com.zorg.wallhavenformuzei.data.model.Wallpaper
-import com.zorg.wallhavenformuzei.data.error.NoItemsException
+import com.zorg.wallhavenformuzei.error.NoItemsException
 import com.zorg.wallhavenformuzei.data.service.WallpaperApiClient
+import com.zorg.wallhavenformuzei.error.JsonSchemaException
 import org.json.JSONArray
+import org.json.JSONException
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -16,11 +19,16 @@ class WallhavenService @Inject constructor(private val httpGet: HttpGet): Wallpa
     companion object {
         const val SEARCH_URL = "https://wallhaven.cc/api/v1/search"
         const val RATIO = "16x9,9x16,portrait"
+        const val JSON_KEY = "data"
     }
 
     override fun getRandomWallpaper(): Wallpaper {
         val searchJson = httpGet.getJsonFromUrl(getSearchUrl())
-        return deserialize(searchJson.getJSONArray("data"))
+        try {
+            return deserialize(searchJson.getJSONArray(JSON_KEY))
+        } catch (e: JSONException) {
+            throw JsonSchemaException("error in schema")
+        }
     }
 
     private fun getSearchUrl(): String {
