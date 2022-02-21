@@ -1,23 +1,17 @@
 package com.zorg.wallhavenformuzei.data.service.wallhaven
 
-import android.content.Context
 import android.content.res.Resources
 import android.net.Uri
-import com.zorg.wallhavenformuzei.core.HttpGetFactory
+import com.zorg.wallhavenformuzei.core.HttpGet
 import com.zorg.wallhavenformuzei.data.model.Wallpaper
 import com.zorg.wallhavenformuzei.data.error.NoItemsException
 import com.zorg.wallhavenformuzei.data.service.WallpaperApiClient
-import dagger.hilt.android.qualifiers.ActivityContext
-
 import org.json.JSONArray
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class WallhavenService @Inject constructor(
-    @ActivityContext private val applicationContext: Context
-): WallpaperApiClient {
+class WallhavenService @Inject constructor(private val httpGet: HttpGet): WallpaperApiClient {
 
     companion object {
         const val SEARCH_URL = "https://wallhaven.cc/api/v1/search"
@@ -25,8 +19,7 @@ class WallhavenService @Inject constructor(
     }
 
     override fun getRandomWallpaper(): Wallpaper {
-        val future = HttpGetFactory(applicationContext).get().getJsonFromUrl(getSearchUrl())
-        val searchJson = future.get(60, TimeUnit.SECONDS)
+        val searchJson = httpGet.getJsonFromUrl(getSearchUrl())
         return deserialize(searchJson.getJSONArray("data"))
     }
 
