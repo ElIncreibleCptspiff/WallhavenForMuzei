@@ -7,7 +7,7 @@ import com.zorg.wallhavenformuzei.domain.GetWallpaper
 import dagger.hilt.android.qualifiers.ActivityContext
 import javax.inject.Inject
 
-class WallHavenViewModel@Inject constructor(
+class WallpaperViewModel@Inject constructor(
     @ActivityContext private val applicationContext: Context
 ) : ViewModel() {
     var httpGet = HttpGetFactory(applicationContext).get()

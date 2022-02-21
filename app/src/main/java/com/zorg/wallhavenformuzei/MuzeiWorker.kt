@@ -5,19 +5,18 @@ import androidx.work.*
 import com.google.android.apps.muzei.api.provider.ProviderContract
 import com.zorg.wallhavenformuzei.domain.CreateArtWork
 import com.zorg.wallhavenformuzei.data.error.NoItemsException
-import com.zorg.wallhavenformuzei.ui.viewmodel.WallHavenViewModel
+import com.zorg.wallhavenformuzei.ui.viewmodel.WallpaperViewModel
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.TimeoutException
 
-
-class WallhavenWorker(context: Context, workerParams: WorkerParameters) :
+class MuzeiWorker(context: Context, workerParams: WorkerParameters) :
     Worker(context, workerParams) {
 
     companion object {
         internal fun enqueueLoad(context: Context) {
             val workManager = WorkManager.getInstance(context)
             workManager.enqueue(
-                OneTimeWorkRequestBuilder<WallhavenWorker>().setConstraints(
+                OneTimeWorkRequestBuilder<MuzeiWorker>().setConstraints(
                     Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
                 ).build()
             )
@@ -26,8 +25,8 @@ class WallhavenWorker(context: Context, workerParams: WorkerParameters) :
 
     override fun doWork(): Result {
         return try {
-            val wallpaper = WallHavenViewModel(applicationContext).getWallpaper()
-            val providerClient = ProviderContract.getProviderClient(applicationContext, WallhavenArtProvider::class.java)
+            val wallpaper = WallpaperViewModel(applicationContext).getWallpaper()
+            val providerClient = ProviderContract.getProviderClient(applicationContext, ArtProvider::class.java)
             providerClient.addArtwork(CreateArtWork.create(wallpaper))
             Result.success()
         } catch (e: NoItemsException) {
