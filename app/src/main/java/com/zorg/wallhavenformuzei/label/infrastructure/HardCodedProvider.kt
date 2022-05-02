@@ -18,7 +18,6 @@ class HardCodedProvider: LabelProvider {
         Label(title = "torii"),
         Label(title = "batman"),
         Label(title = "justice league"),
-        Label(title = "batman"),
         Label(title = "monkey island"),
         Label(title = "calvin and hobbes"),
         Label(title = "anime"),
