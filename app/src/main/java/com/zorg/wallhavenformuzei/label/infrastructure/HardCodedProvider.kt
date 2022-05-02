@@ -21,5 +21,6 @@ class HardCodedProvider: LabelProvider {
         Label(title = "batman"),
         Label(title = "monkey island"),
         Label(title = "calvin and hobbes"),
+        Label(title = "anime"),
     )
 }
