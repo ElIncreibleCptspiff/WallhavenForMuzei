@@ -7,13 +7,9 @@ import com.zorg.wallhavenformuzei.wallpaper.application.Fetcher
 import com.zorg.wallhavenformuzei.wallpaper.infrastructure.provider.Wallhaven
 import com.zorg.wallhavenformuzei.label.infrastructure.Service as LabelService
 
-class Service () {
+class Service() {
     fun getFromWallHaven(applicationContext: Context): Wallpaper {
-        val httpGet = HttpGetFactory(applicationContext).get()
-        val wallpaperProvider = Wallhaven()
-        val labelFetcher = LabelService()
-
-        val fetcher = Fetcher()
-        return fetcher.fetch(httpGet, wallpaperProvider, labelFetcher.get().title)
+        val wallpaperFetcher = Fetcher(HttpGetFactory(applicationContext).get(), Wallhaven())
+        return wallpaperFetcher.fetch(LabelService().get().title)
     }
 }

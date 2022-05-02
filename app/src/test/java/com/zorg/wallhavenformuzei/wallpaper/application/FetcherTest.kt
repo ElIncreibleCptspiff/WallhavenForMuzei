@@ -23,7 +23,7 @@ class FetcherTest {
     @Before
     fun onBefore() {
         MockKAnnotations.init(this)
-        fetcher = Fetcher()
+        fetcher = Fetcher(httpGet, wallPaperProvider)
     }
 
     @Test
@@ -33,7 +33,7 @@ class FetcherTest {
         every { wallPaperProvider.getSearchUrl("label") } returns "url"
         every { httpGet.getJsonFromUrl("url") } returns jsonObject
         //When
-        fetcher.fetch(httpGet, wallPaperProvider, "label")
+        fetcher.fetch("label")
         //Then
         verify(exactly = 1) { wallPaperProvider.getSearchUrl("label") }
         verify(exactly = 1) { wallPaperProvider.deserialize(jsonObject) }

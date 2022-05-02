@@ -3,6 +3,8 @@ package com.zorg.wallhavenformuzei
 import android.content.Context
 import androidx.work.*
 import com.google.android.apps.muzei.api.provider.ProviderContract
+import com.zorg.wallhavenformuzei.core.http.HttpGet
+import com.zorg.wallhavenformuzei.core.http.HttpGetFactory
 import com.zorg.wallhavenformuzei.artwork.Service as artWorkService
 import com.zorg.wallhavenformuzei.wallpaper.infrastructure.Service as WallpaperService
 import com.zorg.wallhavenformuzei.wallpaper.application.JsonSchemaException
@@ -26,8 +28,7 @@ class MuzeiWorker(context: Context, workerParams: WorkerParameters) :
 
     override fun doWork(): Result {
         return try {
-            val wallpaperService = WallpaperService()
-            val wallpaper = wallpaperService.getFromWallHaven(applicationContext)
+            val wallpaper = WallpaperService().getFromWallHaven(applicationContext)
             val providerClient = ProviderContract.getProviderClient(applicationContext, ArtProvider::class.java)
             providerClient.addArtwork(artWorkService.create(wallpaper))
             Result.success()
