@@ -1,4 +1,4 @@
-package com.zorg.wallhavenformuzei.core
+package com.zorg.wallhavenformuzei.core.http
 
 import org.json.JSONObject
 

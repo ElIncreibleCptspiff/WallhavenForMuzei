@@ -1,10 +1,10 @@
-package com.zorg.wallhavenformuzei.domain
+package com.zorg.wallhavenformuzei.artwork
 
 import android.net.Uri
 import com.google.android.apps.muzei.api.provider.Artwork
-import com.zorg.wallhavenformuzei.data.model.Wallpaper
+import com.zorg.wallhavenformuzei.wallpaper.domain.Wallpaper
 
-class CreateArtWork {
+class Service {
     companion object {
         fun create(wallpaper: Wallpaper): Artwork = Artwork.Builder()
             .attribution(wallpaper.attribution)
