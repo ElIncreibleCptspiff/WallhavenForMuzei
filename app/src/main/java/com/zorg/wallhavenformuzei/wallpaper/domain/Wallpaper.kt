@@ -1,4 +1,4 @@
-package com.zorg.wallhavenformuzei.data.model
+package com.zorg.wallhavenformuzei.wallpaper.domain
 
 import com.google.gson.annotations.SerializedName
 

@@ -5,7 +5,7 @@ import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.RequestFuture
 import com.android.volley.toolbox.Volley
-import com.zorg.wallhavenformuzei.core.HttpGet
+import com.zorg.wallhavenformuzei.core.http.HttpGet
 import dagger.hilt.android.qualifiers.ActivityContext
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
@@ -15,7 +15,7 @@ import javax.inject.Singleton
 @Singleton
 class VolleyHelper @Inject constructor(
         @ActivityContext private val applicationContext: Context
-):HttpGet {
+): HttpGet {
     override fun getJsonFromUrl(url:String): JSONObject {
         val future = RequestFuture.newFuture<JSONObject>()
         val request = JsonObjectRequest(Request.Method.GET, url, null, future, future)

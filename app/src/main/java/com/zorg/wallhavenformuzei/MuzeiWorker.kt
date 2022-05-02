@@ -1,13 +1,12 @@
 package com.zorg.wallhavenformuzei
 
 import android.content.Context
-import android.util.Log
 import androidx.work.*
 import com.google.android.apps.muzei.api.provider.ProviderContract
-import com.zorg.wallhavenformuzei.domain.CreateArtWork
-import com.zorg.wallhavenformuzei.error.JsonSchemaException
-import com.zorg.wallhavenformuzei.error.NoItemsException
-import com.zorg.wallhavenformuzei.ui.viewmodel.WallpaperViewModel
+import com.zorg.wallhavenformuzei.artwork.Service as artWorkService
+import com.zorg.wallhavenformuzei.wallpaper.infrastructure.Service as WallpaperService
+import com.zorg.wallhavenformuzei.wallpaper.application.JsonSchemaException
+import com.zorg.wallhavenformuzei.wallpaper.infrastructure.provider.NoItemsException
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.TimeoutException
 
@@ -27,9 +26,10 @@ class MuzeiWorker(context: Context, workerParams: WorkerParameters) :
 
     override fun doWork(): Result {
         return try {
-            val wallpaper = WallpaperViewModel(applicationContext).getWallpaper()
+            val wallpaperService = WallpaperService()
+            val wallpaper = wallpaperService.getFromWallHaven(applicationContext)
             val providerClient = ProviderContract.getProviderClient(applicationContext, ArtProvider::class.java)
-            providerClient.addArtwork(CreateArtWork.create(wallpaper))
+            providerClient.addArtwork(artWorkService.create(wallpaper))
             Result.success()
         } catch (e: NoItemsException) {
             Result.retry()
