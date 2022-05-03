@@ -21,5 +21,7 @@ class HardCodedProvider: LabelProvider {
         Label(title = "monkey island"),
         Label(title = "calvin and hobbes"),
         Label(title = "anime"),
+        Label(title = "Kimi no Na Wa"),
+        Label(title = "Miyamizu Mitsuha"),
     )
 }

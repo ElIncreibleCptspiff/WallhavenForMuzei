@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.zorg.wallhavenformuzei">
+    package="com.zorg.wallhavenformuzei" >
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -13,6 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WallhavenForMuzei" >
+        <activity
+            android:name=".setting.SettingActivity"
+            android:exported="true" />
 
         <provider
             android:name=".ArtProvider"
@@ -20,10 +23,15 @@
             android:description="@string/provider_description"
             android:exported="true"
             android:label="@string/provider_label"
-            android:permission="com.google.android.apps.muzei.api.ACCESS_PROVIDER">
+            android:permission="com.google.android.apps.muzei.api.ACCESS_PROVIDER" >
             <intent-filter>
                 <action android:name="com.google.android.apps.muzei.api.MuzeiArtProvider" />
             </intent-filter>
+
+            <meta-data
+                android:name="settingsActivity"
+                android:value="com.zorg.wallhavenformuzei.setting.SettingActivity" />
         </provider>
     </application>
+
 </manifest>
