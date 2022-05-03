@@ -27,7 +27,7 @@ class FetcherTest {
         //Given
         every { provider.getRandom() } returns Label("random")
         //When
-        val label = fetcher.fetch(provider)
+        val label = fetcher.getRandom(provider)
         //Then
         verify(exactly = 1) { provider.getRandom() }
         assert(label.title == "random")

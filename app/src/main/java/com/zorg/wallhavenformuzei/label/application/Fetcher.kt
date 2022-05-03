@@ -4,7 +4,7 @@ import com.zorg.wallhavenformuzei.label.domain.Label
 import com.zorg.wallhavenformuzei.label.domain.LabelProvider
 
 class Fetcher {
-    fun fetch(provider: LabelProvider): Label {
+    fun getRandom(provider: LabelProvider): Label {
         return provider.getRandom()
     }
 }
