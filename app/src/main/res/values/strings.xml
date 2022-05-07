@@ -3,4 +3,8 @@
     <string name="provider_label">Wallhaven for Muzei</string>
     <string name="provider_description">Get awesome wallpapers for Muzei! </string>
     <string name="title_activity_setting">SettingActivity</string>
+    <string name="image_0_from_data_provider">image 0 from data provider</string>
+    <string name="image_1_from_data_provider">image 1 from data provider</string>
+    <string name="image_2_from_data_provider">image 2 from data provider</string>
+    <string name="image_3_from_data_provider">image 3 from data provider</string>
 </resources>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/ivPhoto0"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@color/black"
+            android:contentDescription="@string/image_0_from_data_provider" />
+
+        <ImageView
+            android:id="@+id/ivPhoto1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toEndOf="@+id/ivPhoto0"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@color/black"
+            android:contentDescription="@string/image_1_from_data_provider" />
+
+        <ImageView
+            android:id="@+id/ivPhoto2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivPhoto0"
+            tools:background="@color/black"
+            android:contentDescription="@string/image_2_from_data_provider" />
+
+        <ImageView
+            android:id="@+id/ivPhoto3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toEndOf="@+id/ivPhoto2"
+            app:layout_constraintTop_toBottomOf="@+id/ivPhoto1"
+            tools:background="@color/black"
+            android:contentDescription="@string/image_3_from_data_provider" />
+
+        <TextView
+            android:id="@+id/tvLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="21sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivPhoto1"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:Text="soy un Label" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

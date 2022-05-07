@@ -7,6 +7,7 @@
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1375" />
         <entry key="app/src/main/res/layout/activity_setting.xml" value="0.11458333333333333" />
         <entry key="app/src/main/res/layout/content_scrolling.xml" value="0.11458333333333333" />
+        <entry key="app/src/main/res/layout/item_label.xml" value="0.24583333333333332" />
       </map>
     </option>
   </component>

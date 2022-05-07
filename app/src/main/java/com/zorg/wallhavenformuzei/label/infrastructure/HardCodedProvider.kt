@@ -6,7 +6,11 @@ import com.zorg.wallhavenformuzei.label.domain.LabelProvider
 class HardCodedProvider: LabelProvider {
 
     override fun getRandom(): Label {
-        return labels[(labels.indices).random()]
+        return this.getAll()[(this.getAll().indices).random()]
+    }
+
+    override fun getAll(): List<Label> {
+        return labels
     }
 
     private val labels = listOf(

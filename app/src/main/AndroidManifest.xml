@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WallhavenForMuzei" >
         <activity
-            android:name=".setting.SettingActivity"
+            android:name=".setting.infrastructure.SettingActivity"
             android:exported="true" />
 
         <provider
@@ -30,7 +30,7 @@
 
             <meta-data
                 android:name="settingsActivity"
-                android:value="com.zorg.wallhavenformuzei.setting.SettingActivity" />
+                android:value="com.zorg.wallhavenformuzei.setting.infrastructure.SettingActivity" />
         </provider>
     </application>
 

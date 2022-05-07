@@ -28,7 +28,7 @@ class MuzeiWorker(context: Context, workerParams: WorkerParameters) :
 
     override fun doWork(): Result {
         return try {
-            val wallpaper = WallpaperService().getFromWallHaven(applicationContext)
+            val wallpaper = WallpaperService(applicationContext).getFromWallHaven()
             val providerClient = ProviderContract.getProviderClient(applicationContext, ArtProvider::class.java)
             providerClient.addArtwork(artWorkService.create(wallpaper))
             Result.success()

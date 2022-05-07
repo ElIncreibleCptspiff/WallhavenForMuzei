@@ -2,10 +2,13 @@ package com.zorg.wallhavenformuzei.wallpaper.infrastructure.provider
 
 import android.content.res.Resources
 import android.net.Uri
+import android.util.Log
+import com.zorg.wallhavenformuzei.wallpaper.domain.UriImage
 import com.zorg.wallhavenformuzei.wallpaper.domain.Wallpaper
 import com.zorg.wallhavenformuzei.wallpaper.domain.WallpaperProvider
 import org.json.JSONArray
 import org.json.JSONObject
+import java.lang.Math.min
 
 class Wallhaven: WallpaperProvider {
 
@@ -25,20 +28,29 @@ class Wallhaven: WallpaperProvider {
             .build().toString()
     }
 
-    override fun deserialize(result: JSONObject): Wallpaper {
+    override fun getWallPaper(result: JSONObject): Wallpaper {
         val query = deserializeMetaData(result.get(JSON_KEY_META) as JSONObject)
         return deserializeJsonArray(result.getJSONArray(JSON_KEY_DATA), query)
+    }
+
+    override fun getUriImages(): List<UriImage> {
+        return listOf(
+            UriImage("https://th.wallhaven.cc//small//m9//m9o5xk.jpg"),
+            UriImage("https://th.wallhaven.cc//small//e7//e7283l.jpg"),
+            UriImage("https://th.wallhaven.cc//small//g7//g7mepe.jpg"),
+            UriImage("https://th.wallhaven.cc//small//9m//9m8q31.jpg"),
+        )
     }
 
     private fun deserializeMetaData(metaData: JSONObject): String {
         return metaData.getString("query")
     }
 
-    private fun deserializeJsonArray(wallpapers: JSONArray, query: String): Wallpaper {
-        if (wallpapers.length() == 0) {
+    private fun deserializeJsonArray(jsonArray: JSONArray, query: String): Wallpaper {
+        if (jsonArray.length() == 0) {
             throw NoItemsException("Empty search")
         }
-        val jsonWallpaper = wallpapers.getJSONObject((0 until wallpapers.length()).random())
+        val jsonWallpaper = jsonArray.getJSONObject((0 until jsonArray.length()).random())
         return Wallpaper(
             jsonWallpaper.getString("id"),
             jsonWallpaper.getString("created_at"),
@@ -49,6 +61,24 @@ class Wallhaven: WallpaperProvider {
             jsonWallpaper.getString("path"),
             jsonWallpaper.getString("short_url")
         )
+    }
+
+    private fun buildListUriImages(jsonArray: JSONArray, total: Int): List<UriImage> {
+        if (jsonArray.length() == 0) {
+            throw NoItemsException("Empty search")
+        }
+        val result = listOf<UriImage>()
+        var totalItems = 0
+        while (totalItems < total) {
+            if (totalItems < jsonArray.length()) {
+                val jsonWallpaper = jsonArray.getJSONObject(totalItems)
+                result.plus(jsonWallpaper.getString("path"))
+            } else {
+                result.plus("")
+            }
+            totalItems++
+        }
+        return result
     }
 
     private fun getResolution(): String {

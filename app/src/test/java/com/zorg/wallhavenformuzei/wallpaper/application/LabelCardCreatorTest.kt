@@ -11,7 +11,7 @@ import org.junit.Before
 
 import org.junit.Test
 
-class FetcherTest {
+class LabelCardCreatorTest {
 
     @RelaxedMockK
     private lateinit var httpGet: HttpGet
@@ -36,6 +36,6 @@ class FetcherTest {
         fetcher.fetch("label")
         //Then
         verify(exactly = 1) { wallPaperProvider.getSearchUrl("label") }
-        verify(exactly = 1) { wallPaperProvider.deserialize(jsonObject) }
+        verify(exactly = 1) { wallPaperProvider.getWallPaper(jsonObject) }
     }
 }

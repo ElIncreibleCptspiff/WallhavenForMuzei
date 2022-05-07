@@ -7,4 +7,8 @@ class Fetcher {
     fun getRandom(provider: LabelProvider): Label {
         return provider.getRandom()
     }
+
+    fun getAll(provider: LabelProvider): List<Label> {
+        return provider.getAll()
+    }
 }

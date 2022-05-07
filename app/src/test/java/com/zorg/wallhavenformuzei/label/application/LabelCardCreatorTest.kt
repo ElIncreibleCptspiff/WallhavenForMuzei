@@ -9,7 +9,7 @@ import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
 
-class FetcherTest {
+class LabelCardCreatorTest {
 
     @RelaxedMockK
     private lateinit var provider: LabelProvider

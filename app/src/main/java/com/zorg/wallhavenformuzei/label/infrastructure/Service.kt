@@ -7,4 +7,8 @@ class Service {
     fun getRandom(): Label {
         return Fetcher().getRandom(HardCodedProvider())
     }
+
+    fun getAll(): List<Label> {
+        return Fetcher().getAll(HardCodedProvider())
+    }
 }
