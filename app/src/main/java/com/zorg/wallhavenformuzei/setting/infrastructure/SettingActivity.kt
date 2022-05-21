@@ -36,9 +36,10 @@ class SettingActivity : AppCompatActivity() {
     }
 
     private fun loadLabelCards() {
+        val context = this
         CoroutineScope(Dispatchers.IO).launch {
             val wallhavenFetcher = WallpaperFetcher(Wallhaven())
-            val labelCards = LabelCardCreator().CreateList(Service().getAll(), wallhavenFetcher)
+            val labelCards = LabelCardCreator().CreateList(Service(context).getAll(), wallhavenFetcher)
             runOnUiThread {
                 labelCard.clear()
                 labelCard.addAll(labelCards)
